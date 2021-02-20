@@ -13,10 +13,20 @@ public class Referee extends AbstractReferee {
     @Inject private MultiplayerGameManager<Player> gameManager;
     @Inject private GraphicEntityModule graphicEntityModule;
 
+    private int gameWidth = 1920;
+    private int gameHeight = 1080;
+
     @Override
     public void init() {
         // Initialize your game here.
+
+        drawBackground();
     }
+
+    private void drawBackground() {
+        graphicEntityModule.createCircle().setX(gameWidth / 2).setY(gameHeight / 2);
+    }
+
 
     @Override
     public void gameTurn(int turn) {
