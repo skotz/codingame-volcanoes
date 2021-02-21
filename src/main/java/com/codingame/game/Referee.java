@@ -1,15 +1,13 @@
 package com.codingame.game;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.codingame.gameengine.core.AbstractPlayer.TimeoutException;
 import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
+import com.codingame.gameengine.module.entities.Sprite;
 import com.google.inject.Inject;
 import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
@@ -47,6 +45,7 @@ public class Referee extends AbstractReferee {
 
         graphics.drawBackground();
         graphics.draw();
+        graphics.drawAvatars(gameManager.getActivePlayers());
     }
 
     @Override
@@ -120,7 +119,7 @@ public class Referee extends AbstractReferee {
                     players.get(playerIndex).sendInputLine(position);
                     players.get(playerIndex).sendInputLine(moveList);
                     players.get(playerIndex).execute();
-                    String output = players.get(playerIndex).getOutputs().get(0);
+                    String output = players.get(playerIndex).getOutputs().get(0).toUpperCase(Locale.ROOT);
 
                     if (output.equals("RANDOM")) {
                         output = validMoveTiles.get(rand.nextInt(validMoveTiles.size()));

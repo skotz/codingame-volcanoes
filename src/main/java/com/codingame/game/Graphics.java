@@ -1,7 +1,9 @@
 package com.codingame.game;
 
+import com.codingame.gameengine.core.AbstractMultiplayerPlayer;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Polygon;
+import com.codingame.gameengine.module.entities.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Graphics {
     public float TileSize = 156;
     public int TileSpacing = 8;
     public int BoardSpacing = 23;
+    public int TopBoardSpacing = 145;
     public float TileWidth = TileSize;
     public float TileHeight = (float)(TileWidth * Math.sqrt(3) / 2);
     public float TileHorizontalSpacing = (float)(TileSpacing * Math.sqrt(3) / 2);
@@ -31,7 +34,7 @@ public class Graphics {
     public int PlayerTwoMagmaChamberTileColor= GetColor(255, 151, 0);
     public int PlayerTwoDormantTileColor = GetColor(114, 68, 0);
     public int EmptyTileColor = GetColor(128, 128, 128);
-    public int BackgroundColor = GetColor(37, 46, 56);
+    public int BackgroundColor = GetColor(240, 240, 240);
     public int ReviewBackgroundColor = GetColor(200, 200, 200);
     public int HoverTileBorderColor = GetColor(230, 0, 113);
     public int HoverAdjacentTileBorderColor = GetColor(200, 200, 200);
@@ -46,6 +49,32 @@ public class Graphics {
         game = gameState;
 
         InitializeTiles();
+        InitializeText();
+    }
+
+    private void InitializeText()
+    {
+        for (int i = 0; i < 80; i++) {
+            int triangleAdjust = (_tiles.get(i).Upright ? 1 : -1) * (int)TileHeight / 3;
+            Rectangle box = _tiles.get(i).BoundingBox;
+            graphics.createText(Constants.TileNames[i])
+                    .setFontFamily("Arial")
+                    .setFontSize(32)
+                    .setFillColor(0xffffff)
+                    .setAnchor(0.5)
+                    .setX(box.X + box.Width / 2)
+                    .setY(box.Y + box.Height / 2 + triangleAdjust)
+                    .setZIndex(200)
+                    .setAlpha(0.5);
+            _tiles.get(i).TileValue = graphics.createText("")
+                    .setFontFamily("Arial")
+                    .setFontSize(50)
+                    .setFillColor(0xffffff)
+                    .setAnchor(0.5)
+                    .setX(box.X + box.Width / 2)
+                    .setY(box.Y + box.Height / 2)
+                    .setZIndex(200);
+        }
     }
 
     private void InitializeTiles()
@@ -61,7 +90,7 @@ public class Graphics {
             {
                 // Details of outer triangle
                 float x = outerCol * (TileWidth * 2 + TileHorizontalSpacing * 4) + TileSpacing + BoardSpacing;
-                float y = outerRow * (TileHeight * 2 + TileSpacing * 2 + TileHorizontalInverseSpacing) + TileSpacing + BoardSpacing;
+                float y = outerRow * (TileHeight * 2 + TileSpacing * 2 + TileHorizontalInverseSpacing) + TileSpacing + BoardSpacing + TopBoardSpacing;
                 boolean upright = outerRow % 2 == 0;
                 if (outerRow >= 2)
                 {
@@ -144,12 +173,48 @@ public class Graphics {
                 GameTile tile = new GameTile();
                 tile.Location = new PointF(x, y);
                 tile.Upright = upright;
-                // tile.BoundingBox = new Rectangle(x, y, TileWidth, TileHeight);
+                tile.BoundingBox = new Rectangle((int)x, (int)y, (int)TileWidth, (int)TileHeight);
                 tile.Path = path;
 
                 _tiles.add(tile);
             }
         }
+    }
+
+    public void drawAvatars(List<Player> players) {
+        int size = 100;
+        int space = 10;
+        int border = size + space * 2;
+
+        graphics.createRectangle()
+                .setX(space).setY(space)
+                .setWidth(border).setHeight(border)
+                .setFillColor(PlayerOneVolcanoTileColor);
+        graphics.createSprite()
+                .setX(space * 2).setY(space * 2)
+                .setImage(players.get(0).getAvatarToken())
+                .setBaseWidth(size).setBaseHeight(size);
+        graphics.createText(players.get(0).getNicknameToken())
+                .setX(border + space * 2).setY(space + border / 2)
+                .setAnchorX(0).setAnchorY(0.5)
+                .setFontFamily("Arial")
+                .setFillColor(PlayerOneDormantTileColor)
+                .setFontSize(80);
+
+        graphics.createRectangle()
+                .setX(gameWidth - border - space).setY(space)
+                .setWidth(border).setHeight(border)
+                .setFillColor(PlayerTwoVolcanoTileColor);
+        graphics.createSprite()
+                .setX(gameWidth - border).setY(space * 2)
+                .setImage(players.get(1).getAvatarToken())
+                .setBaseWidth(size).setBaseHeight(size);
+        graphics.createText(players.get(0).getNicknameToken())
+                .setX(gameWidth - border - space * 2).setY(space + border / 2)
+                .setAnchorX(1).setAnchorY(0.5)
+                .setFontFamily("Arial")
+                .setFillColor(PlayerTwoDormantTileColor)
+                .setFontSize(80);
     }
 
     public void drawBackground() {
@@ -159,6 +224,11 @@ public class Graphics {
     public void draw() {
         for (int i = 0; i < 80; i++) {
             DrawTile(i, -1);
+            if (game.Tiles[i] == 0) {
+                _tiles.get(i).TileValue.setText(" ").setAlpha(0);
+            } else {
+                _tiles.get(i).TileValue.setText(Integer.toString(Math.abs(game.Tiles[i]))).setAlpha(1);
+            }
         }
     }
 
@@ -187,26 +257,14 @@ public class Graphics {
             }
         }
 
-        // // Winning paths
-        // if (game.WinningPathPlayerOne.Count > 0 || game.WinningPathPlayerTwo.Count > 0) {
-        //     if (!game.WinningPathPlayerOne.Contains(index) && !game.WinningPathPlayerTwo.Contains(index)) {
-        //         tileColor = Color.FromArgb(64, tileColor);
-        //     }
-        // }
+        // Winning paths
+        if (game.WinningPathPlayerOne.size() > 0 || game.WinningPathPlayerTwo.size() > 0) {
+            if (!game.WinningPathPlayerOne.contains(index) && !game.WinningPathPlayerTwo.contains(index)) {
+                _tiles.get(index).Path.setAlpha(0.15);
+            }
+        }
 
         _tiles.get(index).Path.setFillColor(tileColor);
-
-        // Brush brush = new SolidBrush(tileColor);
-
-        // g.FillPath(brush, _tiles[index].Path);
-
-        // graphics.createPolygon().
-
-        // // Tile most recently played on
-        // if (lastPlayTile == index || (lastPlayTile == 80 && Math.abs(game.Tiles[boardIndexFromTileIndex[index]]) > 0)) {
-        //     Pen pen = new Pen(LastPlayedTileBorderColor, TileHorizontalSpacing);
-        //     g.DrawPolygon(pen, _tiles[index].Path.PathPoints);
-        // }
     }
 
     private int GetColor(int r, int g, int b) {

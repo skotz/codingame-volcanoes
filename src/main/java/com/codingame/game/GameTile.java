@@ -1,7 +1,7 @@
 package com.codingame.game;
 
 import com.codingame.gameengine.module.entities.Polygon;
-import com.codingame.gameengine.module.entities.Rectangle;
+import com.codingame.gameengine.module.entities.Text;
 
 public class GameTile
 {
@@ -9,4 +9,5 @@ public class GameTile
     public boolean Upright;
     public Rectangle BoundingBox;
     public Polygon Path;
+    public Text TileValue;
 }

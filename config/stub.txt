@@ -1,0 +1,6 @@
+read tileCount:int
+loop tileCount read tileName:word neighbor1:word neighbor2:word neighbor3:word
+gameloop
+read position:string
+read moves:string
+write random
