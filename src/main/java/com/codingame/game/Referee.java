@@ -36,7 +36,7 @@ public class Referee extends AbstractReferee {
         for (int i = 0; i < Constants.AdjacentIndexes.length; i++) {
             String line = Constants.TileNames[i];
             for (int neighbor : Constants.AdjacentIndexes[i]) {
-                line += " " + Constants.TileNames[neighbor];
+                line += " " + Constants.TileNames[neighbor]; // Integer.toString(neighbor);
             }
             initialInput.add(line);
         }
@@ -46,6 +46,8 @@ public class Referee extends AbstractReferee {
         graphics.drawBackground();
         graphics.draw();
         graphics.drawAvatars(gameManager.getActivePlayers());
+
+        gameManager.setTurnMaxTime(100);
     }
 
     @Override

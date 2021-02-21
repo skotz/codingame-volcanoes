@@ -1,6 +1,25 @@
-read tileCount:int
-loop tileCount read tileName:word neighbor1:word neighbor2:word neighbor3:word
+read numberOfTiles:int
+loop numberOfTiles read tileName:word(3) neighbor1:word(3) neighbor2:word(3) neighbor3:word(3)
 gameloop
-read position:string
-read moves:string
+read position:string(1000)
+loop numberOfTiles read tileValue:int
+read moves:string(1000)
+loop numberOfTiles read possibleMove:word(3)
 write random
+
+STATEMENT
+Win by building an unbroken chain of volcanoes from one side of the board to the other.
+
+INPUT
+numberOfTiles : Number of tiles on the board
+tileName: Name of the tile at this index (e.g., N01 or S25)
+neighbor1: Name of a neighboring tile
+neighbor2: Name of a neighboring tile
+neighbor3: Name of a neighboring tile
+position: Space-separated list of volcano levels for every tile on the board
+tileValue: The level of a volcano on this tile (or 0 if there is not a volcano); value will be positive for your volcanoes and negative for your opponent's volcanoes
+moves: Space-separate list of all valid moves in this position
+possibleMove: A valid move in this position
+
+OUTPUT
+Either RANDOM or a tile name (e.g., N12 or S34)
