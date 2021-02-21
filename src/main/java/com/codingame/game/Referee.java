@@ -21,12 +21,9 @@ public class Referee extends AbstractReferee {
     @Inject
     private GraphicEntityModule graphicEntityModule;
 
-    private int gameWidth = 1920;
-    private int gameHeight = 1080;
-
     private Board game;
+    private Graphics graphics;
     private List<String> initialInput;
-
     private Random rand;
 
     @Override
@@ -34,8 +31,8 @@ public class Referee extends AbstractReferee {
         // Initialize your game here.
 
         rand = new Random(gameManager.getSeed());
-
         game = new Board();
+        graphics = new Graphics(graphicEntityModule, game);
 
         initialInput = new ArrayList<>();
         for (int i = 0; i < Constants.AdjacentIndexes.length; i++) {
@@ -48,13 +45,9 @@ public class Referee extends AbstractReferee {
         Collections.sort(initialInput);
         initialInput.add(0, Integer.toString(Constants.AdjacentIndexes.length));
 
-        drawBackground();
+        graphics.drawBackground();
+        graphics.draw();
     }
-
-    private void drawBackground() {
-        graphicEntityModule.createCircle().setX(gameWidth / 2).setY(gameHeight / 2);
-    }
-
 
     @Override
     public void gameTurn(int turn) {
@@ -155,5 +148,7 @@ public class Referee extends AbstractReferee {
                 }
             }
         }
+
+        graphics.draw();
     }
 }
