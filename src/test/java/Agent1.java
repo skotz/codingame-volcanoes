@@ -4,16 +4,21 @@ public class Agent1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        System.err.println(scanner.nextLine());
         for (int i = 0; i < 80; i++) {
             System.err.println(scanner.nextLine());
         }
 
         while (true) {
-            String input = scanner.nextLine();
+            String position = scanner.nextLine();
+            String moves = scanner.nextLine();
 
-            System.out.println("N20");
+            System.err.println(position);
+            System.err.println(moves);
 
-            System.err.println(input);
+            String move = moves.split(" ")[0];
+
+            System.out.println(move);
         }
     }
 }

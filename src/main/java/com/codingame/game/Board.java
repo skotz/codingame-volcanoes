@@ -383,12 +383,16 @@ public class Board {
         return GetPlayerForTurn(Turn - 1);
     }
 
+    public MoveType GetMoveTypeForCurrentTurn() {
+        return GetMoveTypeForTurn(Turn);
+    }
+
     /// <summary>
     /// Get the type of move a specific turn requires.
     /// </summary>
     /// <param name="turn"></param>
     /// <returns></returns>
-    private MoveType GetMoveTypeForTurn(int turn) {
+    public MoveType GetMoveTypeForTurn(int turn) {
         switch ((turn - 1) % 6) {
             case 2:
             case 5:

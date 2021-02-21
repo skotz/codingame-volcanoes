@@ -19,6 +19,8 @@ public class Constants {
     /// </summary>
     public static String[] TileNames = GetTileNames();
 
+    public static String[] OrderedTileNames = GetOrderedTileNames();
+
     /// <summary>
     /// FOR BACKWARDS COMPATIBILITY
     /// An array mapping a source tile index to it's tile name.
@@ -157,6 +159,12 @@ public class Constants {
                 "N07", "N01", "N08", "N06", "N10", "N02", "N11", "N09", "N13", "N03", "N14", "N12", "N16", "N04", "N17", "N15", "N19", "N05", "N20", "N18", "N22", "S32", "N21", "N23", "N26", "S36", "N25", "N27", "N30", "S40", "N29", "N31", "N34", "S24", "N33", "N35", "N38", "S28", "N37", "N39",
                 "S34", "N24", "S35", "S33", "S38", "N28", "S39", "S37", "S22", "N32", "S23", "S21", "S26", "N36", "S27", "S25", "S30", "N40", "S31", "S29", "S16", "S04", "S15", "S17", "S19", "S05", "S18", "S20", "S07", "S01", "S06", "S08", "S10", "S02", "S09", "S11", "S13", "S03", "S12", "S14",
                 "G",
+        };
+    }
+
+    private static String[] GetOrderedTileNames() {
+        return new String[]{
+                "N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "N09", "N10", "N11", "N12", "N13", "N14", "N15", "N16", "N17", "N18", "N19", "N20", "N21", "N22", "N23", "N24", "N25", "N26", "N27", "N28", "N29", "N30", "N31", "N32", "N33", "N34", "N35", "N36", "N37", "N38", "N39", "N40", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30", "S31", "S32", "S33", "S34", "S35", "S36", "S37", "S38", "S39", "S40"
         };
     }
 
