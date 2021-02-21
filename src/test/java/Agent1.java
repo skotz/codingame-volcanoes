@@ -16,9 +16,9 @@ public class Agent1 {
             System.err.println(position);
             System.err.println(moves);
 
-            String move = moves.split(" ")[0];
+            // String move = moves.split(" ")[0];
 
-            System.out.println(move);
+            System.out.println("RANDOM");
         }
     }
 }
