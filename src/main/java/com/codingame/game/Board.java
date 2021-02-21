@@ -353,6 +353,10 @@ public class Board {
         return current == PlayerType.One ? PlayerType.Two : PlayerType.One;
     }
 
+    public PlayerType GetPlayerForCurrentTurn() {
+        return GetPlayerForTurn(Turn);
+    }
+
     /// <summary>
     /// Which player should move on a given turn number.
     /// </summary>

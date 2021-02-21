@@ -39,7 +39,6 @@ public class Constants {
 
     /// <summary>
     /// An HashMap mapping a tile name back to it's index.
-    /// Supports both old and new tile names!
     /// </summary>
     public static HashMap<String, Integer> TileIndexes = GetTileIndexes();
 
