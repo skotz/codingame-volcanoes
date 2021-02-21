@@ -7,10 +7,9 @@
       <span>The Goal</span>
     </h1>
     <div class="statement-goal-content">
-      The aim of this game is to win.
-      <br>
-      <br>
-      For this question, you will be asked to output a single line as a solution.
+      <p>The goal of the game is to create a line of adjacent volcanoes which connect tiles on opposite sides of the <a href="https://en.wikipedia.org/wiki/Pentakis_icosidodecahedron" target="_blank">Pentakis Icosidodecahedron</a> board (an 80-tile sphere-ish shape).</p>
+      <img src="pentakisicosidodecahedron.png" style="max-width: 200px; margin: 15px 0;" />
+      <p>(Image: <a href="https://commons.wikimedia.org/wiki/File:Pentakis_icosidodecahedron.png" target="_blank">Tom Ruen</a>, Public domain, via Wikimedia Commons)</p>
     </div>
   </div>
   <!-- RULES -->
@@ -20,24 +19,46 @@
       <span>Rules</span>
     </h1>
     <div>
-      <div class="statement-rules-content">Your program receives characters.<br>
-        Your actions have an effect.<br>
-        <br>
-        The game zone works as follows:
+      <div class="statement-rules-content">
+        <h2>On your turn you may either:</h2>
+        <ol>
+          <li>
+            Place a level 1 volcano of your color on an empty tile
+            <br />
+            -or-
+          </li>
+          <li>
+            Grow one of your volcanoes by one level until it's level 4
+          </li>
+        </ol>
+        <h2>Progression of play</h2>
+        <ol>
+          <li>Player one's turn (Blue always goes first)</li>
+          <li>Player two's turn (Orange always goes second)</li>
+          <li>Growth (every volcano on the board grows one level, except dormant volcanoes at level 4)</li>
+          <li>Player two's turn (Orange's turn)</li>
+          <li>Player one's turn (Blue's turn)</li>
+          <li>Growth</li>
+        </ol>
+        <p>This cycle repeats until a player wins by successfully connecting a pair of antipodes (tiles directly opposite each other).</p>
+        <br/>
+        <p>When a volcano advances to level 4 (via a player's turn or via a growth turn), it erupts with the following effects:</p>
         <ul>
-          <li>There are coordinates.</li>
-        </ul>
-        <br>
-        The units work as follows:
-        <ul>
-          <li>They move around.</li>
-        </ul>
-        You <strong>lose</strong> if:
-        <ul>
-          <li>You mess up.</li>
-          <li>You do not supply a valid sequence of actions.</li>
+          <li>The level 4 volcano becomes dormant (it stops growing)</li>
+          <li>The tiles adjacent to the erupting volcano are affected in the following ways:</li>
+            <ul>
+              <li>Friendly volcanoes grow one level (this could trigger another eruption)</li>
+              <li>Enemy volcanoes are destroyed and leave behind empty tiles</li>
+            </ul>
         </ul>
       </div>
+      <div class="statement-victory-conditions"> 
+            <div class="icon victory"></div> 
+            <div class="blk"> 
+              <div class="title">Victory Conditions</div> 
+              <div class="text">Win by building an unbroken chain of volcanoes from one side of the board to the other.</div> 
+            </div> 
+          </div>
     </div>
   </div>
   <!-- EXPERT RULES -->
@@ -47,7 +68,15 @@
       <span>Expert Rules</span>
     </h1>
     <div class="statement-expert-rules-content">
-      If you're going to run local simulations, you'll need to know this!
+      <p>The board is a 2D representation of a 3D object, so tiles connect around the edged of the board (e.g., N40 connects to N21 and S17 connects to S18).</p>
+      <br />
+      <p>Since these connections are tedious to set up, they are provided to you in the initialization inputs.</p>
+      <br />
+      <p>
+        Eruptions can trigger further eruptions. If an infinite chain of eruptions is detected then the game is considered a draw.
+      </p>
+      <br />
+      <p>To help easily determine which tiles are opposite each other, they are named in pairs so that N20 is opposite S20 and S32 is opposite N32.</p>
     </div>
   </div>
   <!-- EXAMPLES -->
@@ -58,11 +87,15 @@
     </h1>
 
     <div class="statement-examples-text">
-      A basic situation, an instruction, a result.
+      <p>Here's an example of a volcano erupting.</p>
+      <img src="example-erupt-1.png" style="max-width: 200px; margin: 15px 0;" />
+      <p>When the blue player levels up their volcano on S40 (or a growth move happens) the volcano on S40 will increase to a level 4 volcano, become dormant, and then spill over into its three adjacent tiles: S39, N30, and S21.</p>
+      <img src="example-erupt-2.png" style="max-width: 200px; margin: 15px 0;" />
+      <p>Victory is obtained when two tiles on opposite sides of the board (in this case N19 and S19) are connected.</p>
+      <img src="example-victory.png" style="max-width: 400px; margin: 15px 0 0 0;" />
     </div>
-
   </div>
-  <!-- WARNING -->
+  <!-- WARNING
   <div class="statement-section statement-warning">
     <h1>
       <span class="icon icon-warning">&nbsp;</span>
@@ -80,24 +113,29 @@
       Don't hesitate to change the viewer's options to help debug your code (<img style="opacity:.8;background:#20252a;"
         height="18" src="https://www.codingame.com/servlet/fileservlet?id=3463235186409" width="18">).
     </div>
-  </div>
+  </div> -->
   <!-- PROTOCOL -->
   <div class="statement-section statement-protocol">
     <h1>
       <span class="icon icon-protocol">&nbsp;</span>
       <span>Game Input</span>
     </h1>
+
     <!-- Protocol block -->
     <div class="blk">
-      <div class="text">The program must first read the initialization data from standard input. Then, provide to the
-        standard output one line with ...</div>
+      <div class="title">Input (first move only)</div>
+      <div class="text">
+        <p><span class="statement-lineno">Line 1: </span> <var>numberOfTiles</var>, the total number of tiles on the board</p>
+        <p><span class="statement-lineno">Next <var>numberOfTiles</var> lines: </span> <var>tileConnections</var>, four space-separated tile names where the last 3 tiles are direct neighbors of the first</p>
+      </div>
     </div>
 
     <!-- Protocol block -->
     <div class="blk">
-      <div class="title">Input</div>
+      <div class="title">Input (each turn)</div>
       <div class="text">
-        <p><span class="statement-lineno">Line 1: </span>one string <var>...</var>, the ...</p>
+        <p><span class="statement-lineno">Line 1: </span> <var>currentPosition</var>, a space-separated list of the volcano levels of all <var>numberOfTiles</var> tiles on the board, with positive values for your volcanoes and negative values for your opponent's volcanoes</p>
+        <p><span class="statement-lineno">Line 2: </span> <var>validMoves</var>, a space-separated list of valid moves in the current position</p>
       </div>
     </div>
 
@@ -105,22 +143,21 @@
     <div class="blk">
       <div class="title">Output</div>
       <div class="text">
-        <span class="statement-lineno">A single line</span> containing ...
-        <br>
+        <p><span class="statement-lineno">Line 1: </span> <var>move</var>, the name of the tile to play on or <action>RANDOM</action> to play a random move</p>
       </div>
     </div>
 
     <!-- Protocol block -->
     <div class="blk">
       <div class="title">Constraints</div>
-      <div class="text"><var>...</var> contains between 1 and 500 characters.<br>
+      <div class="text"><var>numberOfTiles</var> = 80<br>
         <br>Allotted response time to output
         is ≤ <const>2</const> seconds.</div>
     </div>
   </div>
-  <!-- STORY -->
+  <!-- STORY
   <div class="statement-story-background">
-    <div class="statement-story-cover" style="background-size: cover; background-image: url(https://www.codingame.com/servlet/fileservlet?id=2210505809934)">
+    <div class="statement-story-cover">
       <div class="statement-story">
         <h1>Title</h1>
         <div class="story-text">Story
@@ -128,5 +165,5 @@
           Totally optional</div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

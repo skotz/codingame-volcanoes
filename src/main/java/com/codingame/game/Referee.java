@@ -133,6 +133,7 @@ public class Referee extends AbstractReferee {
                     } else {
                         int moveIndex = Constants.TileIndexes.get(output);
                         game.MakeMove(moveIndex, true, false);
+                        gameManager.addToGameSummary(players.get(playerIndex).getNicknameToken() + " played " + Constants.TileNames[moveIndex]);
                     }
                 } catch (TimeoutException e) {
                     players.get(playerIndex).deactivate(players.get(playerIndex).getNicknameToken() + " timed out!");

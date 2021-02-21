@@ -209,7 +209,7 @@ public class Graphics {
                 .setX(gameWidth - border).setY(space * 2)
                 .setImage(players.get(1).getAvatarToken())
                 .setBaseWidth(size).setBaseHeight(size);
-        graphics.createText(players.get(0).getNicknameToken())
+        graphics.createText(players.get(1).getNicknameToken())
                 .setX(gameWidth - border - space * 2).setY(space + border / 2)
                 .setAnchorX(1).setAnchorY(0.5)
                 .setFontFamily("Arial")

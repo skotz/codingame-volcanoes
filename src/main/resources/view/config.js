@@ -4,3 +4,10 @@ import { GraphicEntityModule } from './entity-module/GraphicEntityModule.js';
 export const modules = [
 	GraphicEntityModule
 ];
+
+export const gameName = 'Volcanoes';
+
+export const playerColors = [
+    '#22A0E4',
+    '#FF961A',
+];
