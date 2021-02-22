@@ -10,6 +10,7 @@ import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Sprite;
 import com.google.inject.Inject;
 import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class Referee extends AbstractReferee {
     // Uncomment the line below and comment the line under it to create a Solo Game
@@ -36,7 +37,7 @@ public class Referee extends AbstractReferee {
         for (int i = 0; i < Constants.AdjacentIndexes.length; i++) {
             String line = Constants.TileNames[i];
             for (int neighbor : Constants.AdjacentIndexes[i]) {
-                line += " " + Constants.TileNames[neighbor]; // Integer.toString(neighbor);
+                line += " " + MapIndex(neighbor);
             }
             initialInput.add(line);
         }
@@ -48,6 +49,10 @@ public class Referee extends AbstractReferee {
         graphics.drawAvatars(gameManager.getActivePlayers());
 
         gameManager.setTurnMaxTime(100);
+    }
+
+    private int MapIndex(int index) {
+        return ArrayUtils.indexOf(Constants.OrderedTileNames, Constants.TileNames[index]);
     }
 
     @Override

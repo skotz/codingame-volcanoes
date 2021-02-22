@@ -126,7 +126,14 @@
       <div class="title">Input (first move only)</div>
       <div class="text">
         <p><span class="statement-lineno">Line 1: </span> <var>numberOfTiles</var>, the total number of tiles on the board</p>
-        <p><span class="statement-lineno">Next <var>numberOfTiles</var> lines: </span> <var>tileConnections</var>, four space-separated tile names where the last 3 tiles are direct neighbors of the first</p>
+        <p><span class="statement-lineno">Next <var>numberOfTiles</var> lines: </span> <const>4</const> space-separated values:
+        <ul>
+          <li><var>tileName</var>, the name of the tile at the given index</li>
+          <li><var>neighbor1</var>, the index of a neighboring tile</li>
+          <li><var>neighbor2</var>, the index of a neighboring tile</li>
+          <li><var>neighbor3</var>, the index of a neighboring tile</li>
+        </ul>
+        </p>
       </div>
     </div>
 
