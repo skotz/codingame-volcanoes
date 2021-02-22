@@ -7,10 +7,7 @@ import com.codingame.gameengine.core.AbstractPlayer.TimeoutException;
 import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
-import com.codingame.gameengine.module.entities.Sprite;
 import com.google.inject.Inject;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class Referee extends AbstractReferee {
     // Uncomment the line below and comment the line under it to create a Solo Game
@@ -52,7 +49,7 @@ public class Referee extends AbstractReferee {
     }
 
     private int MapIndex(int index) {
-        return ArrayUtils.indexOf(Constants.OrderedTileNames, Constants.TileNames[index]);
+        return Arrays.asList(Constants.OrderedTileNames).indexOf(Constants.TileNames[index]);
     }
 
     @Override
