@@ -73,7 +73,8 @@ public class Graphics {
                     .setAnchor(0.5)
                     .setX(box.X + box.Width / 2)
                     .setY(box.Y + box.Height / 2)
-                    .setZIndex(200);
+                    .setZIndex(200)
+                    .setAlpha(0);
         }
     }
 
@@ -226,8 +227,10 @@ public class Graphics {
             DrawTile(i, -1);
             if (game.Tiles[i] == 0) {
                 _tiles.get(i).TileValue.setText(" ").setAlpha(0);
+                graphics.commitEntityState(0, _tiles.get(i).TileValue);
             } else {
                 _tiles.get(i).TileValue.setText(Integer.toString(Math.abs(game.Tiles[i]))).setAlpha(1);
+                graphics.commitEntityState(0, _tiles.get(i).TileValue);
             }
         }
     }
