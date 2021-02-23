@@ -7,9 +7,9 @@
       <span>The Goal</span>
     </h1>
     <div class="statement-goal-content">
-      <p>The goal of the game is to create a line of adjacent volcanoes which connect tiles on opposite sides of the <a href="https://en.wikipedia.org/wiki/Pentakis_icosidodecahedron" target="_blank">Pentakis Icosidodecahedron</a> board (an 80-tile sphere-ish shape).</p>
-      <img src="pentakisicosidodecahedron.png" style="max-width: 200px; margin: 15px 0;" />
-      <p>(Image: <a href="https://commons.wikimedia.org/wiki/File:Pentakis_icosidodecahedron.png" target="_blank">Tom Ruen</a>, Public domain, via Wikimedia Commons)</p>
+      <p>The goal of the game is to create an unbroken chain of volcanoes which connect tiles on opposite sides of the <a href="https://en.wikipedia.org/wiki/Pentakis_icosidodecahedron" target="_blank">Pentakis Icosidodecahedron</a> board (an 80-tile sphere-ish shape).</p>
+      <!-- <img src="pentakisicosidodecahedron.png" style="max-width: 200px; margin: 15px 0;" />
+      <p>(Image: <a href="https://commons.wikimedia.org/wiki/File:Pentakis_icosidodecahedron.png" target="_blank">Tom Ruen</a>, Public domain, via Wikimedia Commons)</p> -->
     </div>
   </div>
   <!-- RULES -->
@@ -20,36 +20,24 @@
     </h1>
     <div>
       <div class="statement-rules-content">
-        <h2>On your turn you may either:</h2>
+        <p>On your turn you may place a new level 1 volcano of your color on an empty tile or increase the level of one of your existing volcanoes by one (up to a maximum level of 4).</p>
+        <p>Play progresses as follows.</p>
         <ol>
-          <li>
-            Place a level 1 volcano of your color on an empty tile
-            <br />
-            -or-
-          </li>
-          <li>
-            Grow one of your volcanoes by one level until it's level 4
-          </li>
-        </ol>
-        <h2>Progression of play</h2>
-        <ol>
-          <li>Player one's turn (Blue always goes first)</li>
-          <li>Player two's turn (Orange always goes second)</li>
-          <li>Growth (every volcano on the board grows one level, except dormant volcanoes at level 4)</li>
-          <li>Player two's turn (Orange's turn)</li>
-          <li>Player one's turn (Blue's turn)</li>
+          <li>Blue's turn</li>
+          <li>Orange's turn</li>
+          <li>Growth (every volcano on the board gains one level)</li>
+          <li>Orange's turn</li>
+          <li>Blue's turn</li>
           <li>Growth</li>
         </ol>
-        <p>This cycle repeats until a player wins by successfully connecting a pair of antipodes (tiles directly opposite each other).</p>
-        <br/>
-        <p>When a volcano advances to level 4 (via a player's turn or via a growth turn), it erupts with the following effects:</p>
+        <p>This cycle repeats until a player wins by successfully creating an unbroken chain of volcanoes from one side of the board to the other.</p>
+        <p>Opposite tiles are conveniently numbered so that <const>N20</const> (north 20) is opposite <const>S20</const> (south 20).</p>
+        <p>When a volcano advances to level 4 (during a player's turn or a growth turn), it erupts with the following effects.</p>
         <ul>
           <li>The level 4 volcano becomes dormant (it stops growing)</li>
-          <li>The tiles adjacent to the erupting volcano are affected in the following ways:</li>
-            <ul>
-              <li>Friendly volcanoes grow one level (this could trigger another eruption)</li>
-              <li>Enemy volcanoes are destroyed and leave behind empty tiles</li>
-            </ul>
+          <li>Adjacent volcanoes on the same team as the erupting volcano are increased by one level.</li>
+          <li>Adjacent volcanoes on the opposite team as the erupting volcano are destroyed and leave behind empty tiles.</li>
+          <li>Adjacent volcanoes which are empty are claimed by the team who owns the erupting volcano.</li>
         </ul>
       </div>
       <div class="statement-victory-conditions"> 
@@ -68,18 +56,18 @@
       <span>Expert Rules</span>
     </h1>
     <div class="statement-expert-rules-content">
-      <p>The board is a 2D representation of a 3D object, so tiles connect around the edged of the board (e.g., N40 connects to N21 and S17 connects to S18).</p>
-      <br />
-      <p>Since these connections are tedious to set up, they are provided to you in the initialization inputs.</p>
-      <br />
+      <p>The board is a 2D representation of a 3D object, so tiles connect around the edges of the board (e.g., <const>N40</const> connects to <const>N21</const> and <const>S17</const> connects to <const>S18</const>).</p>
+      <p>Since the connections between tiles are tedious to set up, they are provided to you in the initialization inputs.</p>
       <p>
         Eruptions can trigger further eruptions. If an infinite chain of eruptions is detected then the game is considered a draw.
       </p>
-      <br />
-      <p>To help easily determine which tiles are opposite each other, they are named in pairs so that N20 is opposite S20 and S32 is opposite N32.</p>
+      <p>To help easily determine which tiles are opposite each other, they are named in pairs so that <const>N20</const> is opposite <const>S20</const>, and <const>S32</const> is opposite <const>N32</const>.</p>
+      <p>It is possible for both players to complete a path at the same time during a growth move. If this happens then the game is declared a draw.</p>
+      <p>Game concept by <a href="https://simondorfman.com/volcanoes1">Simon Dorfman</a>.</p>
+      <p>Code is available on <a href="https://github.com/skotz/codingame-volcanoes">GitHub</a>.</p>
     </div>
   </div>
-  <!-- EXAMPLES -->
+  <!-- EXAMPLES
   <div class="statement-section statement-examples">
     <h1>
       <span class="icon icon-example">&nbsp;</span>
@@ -94,7 +82,7 @@
       <p>Victory is obtained when two tiles on opposite sides of the board (in this case N19 and S19) are connected.</p>
       <img src="example-victory.png" style="max-width: 400px; margin: 15px 0 0 0;" />
     </div>
-  </div>
+  </div> -->
   <!-- WARNING
   <div class="statement-section statement-warning">
     <h1>
