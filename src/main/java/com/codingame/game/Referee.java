@@ -75,7 +75,7 @@ public class Referee extends AbstractReferee {
                 gameManager.addToGameSummary("Blue wins!");
                 players.get(0).setScore(100);
                 players.get(1).setScore(0);
-            } else if (game.Winner == PlayerType.One) {
+            } else if (game.Winner == PlayerType.Two) {
                 gameManager.addTooltip(players.get(1), "Orange wins!");
                 gameManager.addToGameSummary("Orange wins!");
                 players.get(0).setScore(0);
