@@ -34,47 +34,55 @@ internal class Player
             var allMoves = moves.Split(' ').ToList();
             var tiles = position.Split(' ').Select(x => int.Parse(x)).ToList();
 
-            // Pick moves closest to the equator first on empty tiles
-            var bestMoves = new List<string>();
-            for (int i = 22; i <= 40; i += 2)
+            try
             {
-                var move = "N" + i.ToString().PadLeft(2, '0');
-                if (allMoves.Contains(move))
+                // Pick moves closest to the equator first on empty tiles
+                var bestMoves = new List<string>();
+                for (int i = 22; i <= 40; i += 2)
                 {
-                    var index = allTiles.IndexOf(move);
-                    if (tiles[index] == 0)
+                    var move = "N" + i.ToString().PadLeft(2, '0');
+                    if (allMoves.Contains(move))
                     {
-                        bestMoves.Add(move);
+                        var index = allTiles.IndexOf(move);
+                        if (tiles[index] == 0)
+                        {
+                            bestMoves.Add(move);
+                        }
                     }
                 }
-            }
-            for (int i = 22; i <= 40; i += 2)
-            {
-                var move = "S" + i.ToString().PadLeft(2, '0');
-                if (allMoves.Contains(move))
+                for (int i = 22; i <= 40; i += 2)
                 {
-                    var index = allTiles.IndexOf(move);
-                    if (tiles[index] == 0)
+                    var move = "S" + i.ToString().PadLeft(2, '0');
+                    if (allMoves.Contains(move))
                     {
-                        bestMoves.Add(move);
+                        var index = allTiles.IndexOf(move);
+                        if (tiles[index] == 0)
+                        {
+                            bestMoves.Add(move);
+                        }
                     }
                 }
-            }
 
-            // Otherwise pick moves away from the edges
-            allMoves = allMoves.OrderByDescending(x => int.Parse(Regex.Replace(x, "[^0-9]", ""))).Where(x => tiles[allTiles.IndexOf(x)] == 0).ToList();
+                // Otherwise pick moves away from the edges
+                allMoves = allMoves.OrderByDescending(x => int.Parse(Regex.Replace(x, "[^0-9]", ""))).Where(x => tiles[allTiles.IndexOf(x)] == 0).ToList();
 
-            if (bestMoves.Count > 0)
-            {
-                var rand = new Random();
-                Console.WriteLine(bestMoves[rand.Next(bestMoves.Count)]);
+                if (bestMoves.Count > 0)
+                {
+                    var rand = new Random();
+                    Console.WriteLine(bestMoves[rand.Next(bestMoves.Count)]);
+                }
+                else if (allMoves.Count > 0)
+                {
+                    Console.WriteLine(allMoves.FirstOrDefault());
+                }
+                else
+                {
+                    Console.WriteLine("RANDOM");
+                }
             }
-            else if (allMoves.Count > 0)
+            catch (Exception ex)
             {
-                Console.WriteLine(allMoves.FirstOrDefault());
-            }
-            else
-            {
+                Console.Error.WriteLine(ex.ToString());
                 Console.WriteLine("RANDOM");
             }
         }
