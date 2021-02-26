@@ -7,7 +7,9 @@
       <span>The Goal</span>
     </h1>
     <div class="statement-goal-content">
-      <p>The goal of the game is to create an unbroken chain of volcanoes which connects tiles on opposite sides of the <a href="https://en.wikipedia.org/wiki/Pentakis_icosidodecahedron" target="_blank">Pentakis Icosidodecahedron</a> board (an 80-tile sphere-ish shape).</p>
+      <p>The goal of the game is to create a chain of volcanoes that connects a tile in the northern hemisphere to it's corresponding tile in the southern hemisphere.</p>
+        <p>Opposing tiles are conveniently numbered so that <const>N16</const> (north 16) is opposite <const>S16</const> (south 16).</p>
+            <p>Since the board is a 2D representation of a <a href="https://en.wikipedia.org/wiki/Pentakis_icosidodecahedron" target="_blank">Pentakis Icosidodecahedron</a> (an 80-faced sphere-ish shape), tiles connect around the edges of the board (e.g., <const>N40</const> connects to <const>N21</const> and <const>S17</const> connects to <const>S18</const>).</p>
       <!-- <img src="pentakisicosidodecahedron.png" style="max-width: 200px; margin: 15px 0;" />
       <p>(Image: <a href="https://commons.wikimedia.org/wiki/File:Pentakis_icosidodecahedron.png" target="_blank">Tom Ruen</a>, Public domain, via Wikimedia Commons)</p> -->
     </div>
@@ -20,7 +22,11 @@
     </h1>
     <div>
       <div class="statement-rules-content">
-        <p>On your turn you may place a new level 1 volcano of your color on an empty tile or increase the level of one of your existing volcanoes by one (up to a maximum level of 4).</p>
+        <p>On your turn you may perform one of the following actions.</p>
+        <ol>
+          <li>Place a new level 1 volcano of your color on any empty tile.</li>
+          <li>Increase the level of one of your existing volcanoes by one (up to a maximum level of 4).</li>
+        </ol>
         <p>Play progresses as follows.</p>
         <ol>
           <li>Blue's turn</li>
@@ -31,20 +37,20 @@
           <li>Growth</li>
         </ol>
         <p>This cycle repeats until a player wins by successfully creating an unbroken chain of volcanoes from one side of the board to the other.</p>
-        <p>Opposite tiles are conveniently numbered so that <const>N20</const> (north 20) is opposite <const>S20</const> (south 20).</p>
         <p>When a volcano advances to level 4 (during a player's turn or a growth turn), it erupts with the following effects.</p>
         <ul>
           <li>The level 4 volcano becomes dormant (it stops growing)</li>
+          <li>Adjacent empty tiles become level 1 volcanoes for the team who owns the erupting volcano.</li>
           <li>Adjacent volcanoes on the same team as the erupting volcano are increased by one level.</li>
           <li>Adjacent volcanoes on the opposite team as the erupting volcano are destroyed and leave behind empty tiles.</li>
-          <li>Adjacent empty tiles are claimed by the team who owns the erupting volcano.</li>
         </ul>
       </div>
       <div class="statement-victory-conditions"> 
             <div class="icon victory"></div> 
             <div class="blk"> 
               <div class="title">Victory Conditions</div> 
-              <div class="text">Win by building an unbroken chain of volcanoes from one side of the board to the other.</div> 
+              <div class="text">Win by connecting any northern tile to its corresponding southern tile with an unbroken chain of volcanoes.</div>
+              <!-- <div class="text">For example, connecting <const>N08</const> to <const>S08</const> would be a winning path.</div> -->
             </div> 
           </div>
     </div>
@@ -56,13 +62,11 @@
       <span>Expert Rules</span>
     </h1>
     <div class="statement-expert-rules-content">
-      <p>The board is a 2D representation of a 3D object, so tiles connect around the edges of the board (e.g., <const>N40</const> connects to <const>N21</const> and <const>S17</const> connects to <const>S18</const>).</p>
       <p>Since the connections between tiles are tedious to set up, they are provided to you in the initialization inputs.</p>
       <p>
         Eruptions can trigger further eruptions. If an infinite chain of eruptions is detected then the game is considered a draw.
       </p>
-      <p>To help easily determine which tiles are opposite each other, they are named in pairs so that <const>N20</const> is opposite <const>S20</const>, and <const>S32</const> is opposite <const>N32</const>.</p>
-      <p>It is possible for both players to complete a path at the same time during a growth move. If this happens then the game is declared a draw.</p>
+      <p>It is possible for both players to complete a path at the same time during the growth phase. If this happens then the game is declared a draw.</p>
       <p>Game concept by <a href="https://simondorfman.com/volcanoes1">Simon Dorfman</a>.</p>
       <p>Code is available on <a href="https://github.com/skotz/codingame-volcanoes">GitHub</a>.</p>
     </div>
