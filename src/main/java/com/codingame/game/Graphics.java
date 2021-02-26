@@ -3,6 +3,7 @@ package com.codingame.game;
 import com.codingame.gameengine.core.AbstractMultiplayerPlayer;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Polygon;
+import com.codingame.gameengine.module.entities.RoundedRectangle;
 import com.codingame.gameengine.module.entities.Sprite;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class Graphics {
     public int TurnClockPlayerToMoveBorderColor = GetColor(255, 255, 0);
 
     public List<GameTile> _tiles;
+    public List<RoundedRectangle> _turnClock;
 
     public Graphics(GraphicEntityModule graphicEntityModule, Board gameState) {
         graphics = graphicEntityModule;
@@ -50,6 +52,29 @@ public class Graphics {
 
         InitializeTiles();
         InitializeText();
+        InitializeTurnClock();
+    }
+
+    private void InitializeTurnClock()
+    {
+        int center = gameWidth / 2;
+        int spacing = 5;
+        int width = 50;
+        int start = center - (width * 6 + spacing * 5) / 2;
+
+        _turnClock = new ArrayList<>();
+
+        _turnClock.add(graphics.createRoundedRectangle().setX(start).setY(-100).setHeight(200).setAlpha(0.5).setWidth(width).setFillColor(PlayerOneVolcanoTileColor).setZIndex(5));
+        start += width + spacing;
+        _turnClock.add(graphics.createRoundedRectangle().setX(start).setY(-150).setHeight(200).setAlpha(0.5).setWidth(width).setFillColor(PlayerTwoVolcanoTileColor).setZIndex(5));
+        start += width + spacing;
+        _turnClock.add(graphics.createRoundedRectangle().setX(start).setY(-150).setHeight(200).setAlpha(0.5).setWidth(width).setFillColor(EmptyTileColor).setZIndex(5));
+        start += width + spacing;
+        _turnClock.add(graphics.createRoundedRectangle().setX(start).setY(-150).setHeight(200).setAlpha(0.5).setWidth(width).setFillColor(PlayerTwoVolcanoTileColor).setZIndex(5));
+        start += width + spacing;
+        _turnClock.add(graphics.createRoundedRectangle().setX(start).setY(-150).setHeight(200).setAlpha(0.5).setWidth(width).setFillColor(PlayerOneVolcanoTileColor).setZIndex(5));
+        start += width + spacing;
+        _turnClock.add(graphics.createRoundedRectangle().setX(start).setY(-150).setHeight(200).setAlpha(0.5).setWidth(width).setFillColor(EmptyTileColor).setZIndex(5));
     }
 
     private void InitializeText()
@@ -232,6 +257,11 @@ public class Graphics {
                 _tiles.get(i).TileValue.setText(Integer.toString(Math.abs(game.Tiles[i]))).setAlpha(1);
                 graphics.commitEntityState(0, _tiles.get(i).TileValue);
             }
+        }
+        // Turn clock
+        for (int i = 0; i < 6; i++) {
+            _turnClock.get(i).setY((game.Turn - 1) % 6 == i ? -100 : -150);
+            _turnClock.get(i).setAlpha((game.Turn - 1) % 6 == i ? 1 : 0.5);
         }
     }
 
