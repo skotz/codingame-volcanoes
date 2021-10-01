@@ -129,7 +129,7 @@ public class Referee extends AbstractReferee {
                         output = validMoveTiles.get(rand.nextInt(validMoveTiles.size()));
                     }
 
-                    if (!Constants.TileIndexes.containsKey(output)) {
+                    if (!Constants.TileIndexes.containsKey(output) || !validMoveTiles.contains(output)) {
                         players.get(playerIndex).deactivate(players.get(playerIndex).getNicknameToken() + " played an invalid move!");
                         players.get(playerIndex).setScore(0);
                         players.get(playerIndex == 0 ? 1 : 0).setScore(100);
