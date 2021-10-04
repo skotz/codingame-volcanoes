@@ -115,9 +115,11 @@ public class Board {
             while (eruptions.size() > 0) {
                 int i = eruptions.remove();
 
+                if (Dormant[i]) {
+                    continue;
+                }
+
                 if (Settings.AllowDormantVolcanoes) {
-                    // Make the volcano dormant
-                    Tiles[i] = Tiles[i] > 0 ? Settings.MaxVolcanoLevel : -Settings.MaxVolcanoLevel;
                     Dormant[i] = true;
                 } else {
                     // Downgrade to a level one volcano
@@ -138,12 +140,10 @@ public class Board {
 
                     // Same owner
                     else if ((Tiles[adjacent] > 0 && Tiles[i] > 0) || (Tiles[adjacent] < 0 && Tiles[i] < 0)) {
-                        if (!Settings.AllowDormantVolcanoes || !Dormant[adjacent]) {
-                            if (Tiles[i] > 0) {
-                                deltas[adjacent] += Settings.EruptOverflowFriendlyTileAmount;
-                            } else {
-                                deltas[adjacent] -= Settings.EruptOverflowFriendlyTileAmount;
-                            }
+                        if (Tiles[i] > 0) {
+                            deltas[adjacent] += Settings.EruptOverflowFriendlyTileAmount;
+                        } else {
+                            deltas[adjacent] -= Settings.EruptOverflowFriendlyTileAmount;
                         }
                     }
 
@@ -182,10 +182,14 @@ public class Board {
 
                     // So we don't process it a second time
                     deltas[i] = 0;
-                }
 
-                if (Settings.AllowDormantVolcanoes) {
-                    Dormant[i] = Math.abs(Tiles[i]) == Settings.MaxVolcanoLevel;
+                    if (Settings.AllowDormantVolcanoes) {
+                        if (Math.abs(Tiles[i]) >= Settings.MaxVolcanoLevel) {
+                            Tiles[i] = Tiles[i] > 0 ? Settings.MaxVolcanoLevel : -Settings.MaxVolcanoLevel;
+                        } else {
+                            Dormant[i] = false;
+                        }
+                    }
                 }
             }
         }
